@@ -1,0 +1,206 @@
+.borderNavRow::after {
+  content: "";
+  clear: both;
+  display: block;
+}
+.showMyday::after {
+  content: "";
+  clear: both;
+  display: block;
+}
+.lineNumber {
+  width: 30%;
+  text-align: right;
+}
+.widthContent {
+  width: 70%;
+}
+.leftColumn {
+  width: 26.517%;
+  height: calc(100vh - 48px);
+}
+.siderbar {
+  margin-top: 16px;
+  padding: 0px 24px;
+  height: 48px;
+}
+.siderbar i {
+  margin-top: 15px;
+  color: gray;
+  height: 20px;
+  width: 20px;
+}
+.siderbarContent {
+  height: 274px;
+}
+
+.siderbarItem {
+  padding: 10px 24px 0px 24px;
+  height: 44px;
+}
+.siderbarItemActive {
+  padding: 10px 24px 0px 24px;
+  height: 44px;
+  background-color: #eff6fc;
+}
+.siderbarItemActive:hover {
+  cursor: pointer;
+  background-color: #eff6fc;
+}
+.siderbarItem i,
+.siderbarItemActive i {
+  color: gray;
+  height: 20px;
+  width: 20px;
+}
+.siderbarItem span,
+.siderbarItemActive span {
+  font-size: 16px;
+  margin-left: 16px;
+}
+.siderbarItem:hover {
+  cursor: pointer;
+  background: #f5f5f5;
+}
+.main-content {
+  overflow: hidden;
+  height: calc(100vh - 48px);
+  background-color: #faf9f7;
+  width: calc(100% - 26.517%);
+  box-shadow: 0 0 1px 0 gray;
+}
+.main-content1 {
+  overflow: hidden;
+  height: calc(100vh - 48px);
+  background-color: #faf9f7;
+  width: 40.56%;
+  box-shadow: 0 0 1px 0 gray;
+}
+.tasksDetail {
+  width: calc(100% - 67.077%);
+  height: calc(100vh - 48px);
+  padding-bottom: 40px;
+  overflow-y: scroll;
+  background: #faf9f7;
+  box-shadow: 0 0 3px 0 gray;
+}
+.tasksDetail i {
+  cursor: pointer;
+}
+.tasksDetailX {
+  top: 0;
+  position: sticky;
+  height: 60px;
+  margin: 0px 20px;
+  background: white;
+}
+.divR {
+  height: 10px;
+  background-color: #faf9f7;
+}
+.tasksDetailX i,
+.tasksDetailInput i {
+  padding-right: 10px;
+}
+.tasksDetailInput {
+  margin: 0px 20px;
+  border-radius: 0px 0px 4px 4px;
+}
+
+.tasksDetailInput button {
+  color: blue;
+  background: white;
+  border: none;
+}
+.marginLDetail {
+  background: white;
+  padding: 10px;
+}
+.marginLDetail input:focus,
+.marginLDetail input {
+  width: 75%;
+  border: none;
+  outline: 0px;
+}
+.deleteTasks {
+  height: 40px;
+  width: 100%;
+  background-color: #faf9f7;
+  bottom: 0px;
+  position: fixed;
+}
+.deleteTasks i {
+  margin-left: 20px;
+}
+.deleteTasks span {
+  padding: 0px 6.9%;
+}
+.addtomyday {
+  padding: 0px 10px;
+  height: 50px;
+  background: white;
+  margin: 10px 0px;
+}
+.addtomyday div {
+  line-height: 50px;
+}
+.iconDetail {
+  border-bottom: 1px solid #faf9f7;
+  background: white;
+  padding: 10px;
+}
+.inputFlie {
+  width: 50%;
+  border: none;
+  background: white;
+}
+.hoverdiv div:hover {
+  color: black;
+  background: #f3f2f1;
+}
+.addStep {
+  background: white;
+}
+.addStep::after {
+  content: "";
+  clear: both;
+  display: block;
+}
+.borderStep {
+  width: 12.6%;
+  line-height: 50px;
+  height: 50px;
+  padding-left: 12px;
+  background: white;
+}
+.contentStep {
+  width: 87.4%;
+  line-height: 50px;
+  height: 50px;
+  background: white;
+  border-bottom: solid 1px #e8e7e6;
+}
+.nameStep {
+  width: 70%;
+}
+.deleteStep {
+  padding-right: 20px;
+  width: 30%;
+  text-align: right;
+}
+.deleteStep:hover {
+  cursor: pointer;
+}
+
+.addedMyday {
+  color: blue;
+  width: 60%;
+}
+.closeMyday {
+  padding-right: 10px;
+  width: 40%;
+  text-align: right;
+}
+.closeMyday:hover {
+  cursor: pointer;
+}

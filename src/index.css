@@ -1,0 +1,40 @@
+* {
+  box-sizing: border-box;
+}
+.fll {
+  float: left;
+}
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  border: #ccc;
+  color: #3f3f3f;
+}
+.textGray {
+  color: gray;
+}
+::-webkit-input-placeholder {
+  color: blue;
+}
+:focus::-webkit-input-placeholder {
+  color: rgb(44, 43, 43);
+}
+.checked {
+  text-decoration: line-through;
+}
+.textB {
+  font-weight: 600;
+}

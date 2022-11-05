@@ -1,0 +1,163 @@
+.mydayBorder {
+  height: 72px;
+  margin: 16px 24px;
+  z-index: 9;
+}
+.contentLineMyday {
+  line-height: 48px;
+}
+.mydayBorder::after {
+  content: "";
+  clear: both;
+  display: block;
+}
+
+.mydayspan {
+  margin-top: -20px;
+  line-height: 24px;
+  padding-left: 1.44%;
+  font-size: 12px;
+}
+.mydayDate {
+  padding: 1.08% 1.44%;
+}
+.mydayDate i {
+  margin-right: 1.45%;
+}
+.mydayDate span {
+  margin-left: 2.53%;
+}
+.mydayDate span:hover {
+  background-color: white;
+}
+.mydaySort {
+  padding-top: 8px;
+  font-size: 14px;
+}
+.suggestions,
+.sort {
+  padding: 2px 5px;
+}
+.sort:hover,
+.suggestions:hover {
+  cursor: pointer;
+  background-color: white;
+}
+.mydayBorder button {
+  margin-top: 2px;
+  background: #faf9f7;
+  border: none;
+}
+.lineSort {
+  line-height: 48px;
+  width: 60%;
+  text-align: right;
+  padding-right: 10px;
+}
+
+.ipadding {
+  padding-right: 5px;
+}
+.dotpadding {
+  padding: 10px;
+}
+.formSubmitMyday {
+  height: calc(100vh - 136px);
+}
+.totalInputTask {
+  height: 97px;
+  margin: 0px 24px;
+}
+.inputTasks {
+  border-radius: 4px 4px 0px 0px;
+
+  height: 52px;
+  padding: 0px 16px;
+  box-shadow: 0 0 1px 0 gray;
+  background-color: white;
+}
+.inputTasks input {
+  width: 80%;
+  padding: 12px 14px 0px 14px;
+  border: none;
+}
+.inputTasks i {
+  padding-left: 10px;
+}
+.inputTasks input:focus {
+  outline: 0px;
+}
+.iconMydayAdd {
+  height: 45px;
+  padding: 0px 16px;
+  border-top: 1px solid #faf9f7;
+  background: #faf9f7;
+  border-radius: 0px 0px 4px 4px;
+  box-shadow: 0 0 1px 0 gray;
+}
+.iconMydayAdd i {
+  padding: 12px 10px;
+  cursor: pointer;
+}
+.iconWidth {
+  width: 50%;
+}
+#ffl {
+  width: 50%;
+  text-align: right;
+}
+.iconMydayAdd button {
+  margin-top: 5px;
+  border: 1px solid #e8e7e6;
+  background: white;
+  padding: 3px;
+}
+
+.tasksArrList {
+  height: calc(100vh - 233px);
+  overflow-y: scroll;
+  margin: 2px 0px 0px 24px;
+  padding-bottom: 30px;
+}
+.tasksArrList1 {
+  background: white;
+  border-radius: 6px;
+  margin-top: 10px;
+  margin-left: 20px;
+  width: 91%;
+  padding: 5px;
+  box-shadow: 0 0 3px 0 gray;
+}
+
+.textSize {
+  font-size: 80%;
+}
+
+.borderTasksArr {
+  border: 1px solid rgb(221, 221, 221);
+  padding: 0px 16px;
+  height: 50px;
+  width: 99%;
+  border-radius: 4px;
+  background: white;
+  cursor: pointer;
+  margin-top: 10px;
+}
+.borderTasksArr::after {
+  content: "";
+  clear: both;
+  display: block;
+}
+.iconLine {
+  width: 48px;
+  padding: 0px 20px 0px 10px;
+  line-height: 50px;
+}
+.taskName {
+  width: 70%;
+}
+.iconLineStar {
+  width: calc(30% - 48px);
+  text-align: right;
+  line-height: 50px;
+}

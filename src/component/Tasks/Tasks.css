@@ -1,0 +1,42 @@
+.tasksLine {
+  line-height: 50px;
+}
+.lineTasks {
+  line-height: 68px;
+}
+.lineTasks1 {
+  line-height: 72px;
+  width: 60%;
+  text-align: right;
+  padding-right: 10px;
+}
+.lineTasks1:hover {
+  cursor: pointer;
+}
+#sizeText {
+  font-weight: 600;
+  font-size: 20px;
+  width: 40%;
+}
+#btnAdd {
+  width: 50%;
+  text-align: right;
+}
+.completed {
+  margin-top: -15px;
+}
+.completed:hover {
+  cursor: pointer;
+}
+.completed span {
+  padding: 5px;
+}
+.iconWidthCompleted {
+  width: 25px;
+}
+.mydayFontsize {
+  font-size: 13px;
+}
+.mydayFontsize span {
+  padding-right: 5px;
+}
