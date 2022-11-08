@@ -24,7 +24,12 @@ function Submit(props) {
             <i className="fa-solid fa-repeat" title="Repeat!"></i>
           </div>
           <div className="fll" id="ffl">
-            <button disabled={!props.formIsvalid}>Add</button>
+            <button
+              disabled={!props.formIsvalid}
+              className={`${props.formIsvalid ? "textBlue" : ""}`}
+            >
+              Add
+            </button>
           </div>
         </div>
       </div>

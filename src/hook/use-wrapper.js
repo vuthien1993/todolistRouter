@@ -28,8 +28,13 @@ const useWrapper = () => {
   const wrapperRef = useRef(null);
   useOutsideAlerter(wrapperRef);
   const datePicker = showDate && (
-    <div ref={wrapperRef}>
-      <DatePicker onChange={onChange} value={value} />
+    <div ref={wrapperRef} className="dateDue">
+      <div className="due">
+        <span>Due</span>
+      </div>
+      <div>
+        <DatePicker onChange={onChange} value={value} className="datePicker" />
+      </div>
     </div>
   );
   const timeNow = new Date().getDate();

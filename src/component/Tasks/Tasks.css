@@ -23,6 +23,8 @@
   text-align: right;
 }
 .completed {
+  font-size: 14px;
+  font-weight: 600;
   margin-top: -15px;
 }
 .completed:hover {
@@ -35,7 +37,7 @@
   width: 25px;
 }
 .mydayFontsize {
-  font-size: 13px;
+  font-size: 12px;
 }
 .mydayFontsize span {
   padding-right: 5px;

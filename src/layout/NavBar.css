@@ -10,7 +10,7 @@
 }
 .navIcon {
   text-align: center;
-  width: 4.39%;
+  width: 3.59%;
   height: 48px;
 }
 .navIcon:hover {
@@ -34,13 +34,13 @@
 }
 
 .navTodo {
-  width: 5.7%;
+  width: 62.27px;
   height: 48px;
 }
 .navSearchInput {
   text-align: center;
   height: 48px;
-  width: 72.36%;
+  width: 75%;
 }
 
 .navSearchInput input {

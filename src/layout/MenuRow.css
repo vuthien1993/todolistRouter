@@ -16,7 +16,7 @@
   width: 70%;
 }
 .leftColumn {
-  width: 26.517%;
+  width: 290px;
   height: calc(100vh - 48px);
 }
 .siderbar {
@@ -37,16 +37,15 @@
 .siderbarItem {
   padding: 10px 24px 0px 24px;
   height: 44px;
+  display: block;
 }
 .siderbarItemActive {
-  padding: 10px 24px 0px 24px;
   height: 44px;
+  padding: 10px 24px 0px 24px;
+  display: block;
   background-color: #eff6fc;
 }
-.siderbarItemActive:hover {
-  cursor: pointer;
-  background-color: #eff6fc;
-}
+
 .siderbarItem i,
 .siderbarItemActive i {
   color: gray;
@@ -55,7 +54,7 @@
 }
 .siderbarItem span,
 .siderbarItemActive span {
-  font-size: 16px;
+  font-size: 14px;
   margin-left: 16px;
 }
 .siderbarItem:hover {
@@ -66,19 +65,34 @@
   overflow: hidden;
   height: calc(100vh - 48px);
   background-color: #faf9f7;
-  width: calc(100% - 26.517%);
   box-shadow: 0 0 1px 0 gray;
+  width: calc(100% - 290px);
 }
+.main-content2 {
+  overflow: hidden;
+  height: calc(100vh - 48px);
+  background-color: #faf9f7;
+  box-shadow: 0 0 1px 0 gray;
+  width: 100%;
+}
+
 .main-content1 {
   overflow: hidden;
   height: calc(100vh - 48px);
   background-color: #faf9f7;
-  width: 40.56%;
+  width: calc(100% - 650px);
+  box-shadow: 0 0 1px 0 gray;
+}
+.main-content3 {
+  overflow: hidden;
+  height: calc(100vh - 48px);
+  background-color: #faf9f7;
+  width: calc(100% - 360px);
   box-shadow: 0 0 1px 0 gray;
 }
 .tasksDetail {
-  width: calc(100% - 67.077%);
-  height: calc(100vh - 48px);
+  width: 360px;
+  height: calc(100vh - 58px);
   padding-bottom: 40px;
   overflow-y: scroll;
   background: #faf9f7;
@@ -123,8 +137,11 @@
   outline: 0px;
 }
 .deleteTasks {
-  height: 40px;
-  width: 100%;
+  padding: 0 24px;
+  display: flex;
+  width: 360px;
+  line-height: 58px;
+  justify-content: space-between;
   background-color: #faf9f7;
   bottom: 0px;
   position: fixed;
@@ -132,27 +149,30 @@
 .deleteTasks i {
   margin-left: 20px;
 }
-.deleteTasks span {
-  padding: 0px 6.9%;
-}
+
 .addtomyday {
+  line-height: 50px;
   padding: 0px 10px;
-  height: 50px;
   background: white;
   margin: 10px 0px;
+  line-height: 52px;
 }
 .addtomyday div {
   line-height: 50px;
 }
-.iconDetail {
-  border-bottom: 1px solid #faf9f7;
-  background: white;
-  padding: 10px;
+.borderBottom {
+  border-bottom: 1px solid #e1dfdd;
 }
-.inputFlie {
-  width: 50%;
-  border: none;
+.iconDetail {
   background: white;
+  padding: 0 10px;
+  line-height: 52px;
+}
+.marginCategory {
+  margin: 8px 0;
+}
+.iconDetail input {
+  display: none;
 }
 .hoverdiv div:hover {
   color: black;
@@ -194,10 +214,9 @@
 
 .addedMyday {
   color: blue;
-  width: 60%;
+  width: 56%;
 }
 .closeMyday {
-  padding-right: 10px;
   width: 40%;
   text-align: right;
 }

@@ -1,17 +1,28 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { importantAction } from "../../Redux/important";
 import Submit from "../MyDay/Submit";
 import useInput from "../../hook/use-input";
-
+import { nextStepAction } from "../../Redux/nextStep";
+import useWrapper from "../../hook/use-wrapper";
+import useShowTaskDate from "../../hook/use-showtaskdate";
+import moment from "moment/moment";
 import "./Important.css";
 function Important() {
+  //ht modal select date su dung customhook
+  const { value, showDateHandler, datePicker, time, timeNow, month, monthNow } =
+    useWrapper();
   const dispatch = useDispatch();
+  const display = useSelector((state) => state.nextStep.display);
+  const displayHandler = () => {
+    dispatch(nextStepAction.displayHandler());
+  };
   const tasksArr = useSelector((state) => state.important.tasksArr);
   const tasksImportant = tasksArr.filter(
     (ele) => ele.isImportant === true && ele.isDone !== true
   );
-  const [id, setId] = useState("");
+  // khai bao customhook hien thi task
+  const { displayTasksToday } = useShowTaskDate(tasksImportant, []);
   const {
     value: enteredImportant,
     valueChangeHandler: changeHandler,
@@ -33,6 +44,10 @@ function Important() {
     event.preventDefault();
     let id = randomIntFromInterval(1, 999);
     let tasksItem = {
+      timeOut: false,
+      month: month,
+      time: time,
+      timed: moment(value).format("dddd, MMMM Do"),
       isDone: false,
       isImportant: true,
       isMyday: false,
@@ -43,50 +58,22 @@ function Important() {
     };
     dispatch(importantAction.addtasks({ tasksItem }));
     resetImportantInput();
-  };
-  const testHandler = (ele, event) => {
-    event.stopPropagation();
-    const idI = ele.id;
-    dispatch(importantAction.important({ idI }));
-    if (ele.id === id) {
-      const isImportant = !ele.isImportant;
-      dispatch(importantAction.showImportantDetail({ isImportant }));
-    }
-  };
-  const showTasksDetail = useSelector(
-    (state) => state.important.showTasksDetail
-  );
-  const showTasksDetailHandler = (ele) => {
-    setId(ele.id);
-    const idDetail = ele.id;
-    const tasksName = ele.tasks;
-    const isImportant = ele.isImportant;
-    dispatch(importantAction.showDetail({ tasksName, idDetail }));
-    dispatch(importantAction.showImportantDetail({ isImportant }));
-    console.log(showTasksDetail);
-  };
-  //ham chon va bo chon hoan thanh cong viec
-  const isDoneHandler = (ele, event) => {
-    event.stopPropagation();
-    const idC = ele.id;
-    dispatch(importantAction.complete({ idC }));
+    dispatch(importantAction.checkTimeOut({ timeNow, monthNow }));
   };
 
-  ////////////////////// xử lý step/////////////
-  const nextStepArr = useSelector((state) => state.nextStep.nextStepArr);
-  const displayStep = (ele) => {
-    const stepDetail = nextStepArr.filter(
-      (element) => element.idDetail === ele.id
-    );
-    const stepDetailCompleted = stepDetail.filter((e) => e.isDone === true);
-    return { stepDetail, stepDetailCompleted };
-  };
   return (
     <React.Fragment>
       <div className="mydayBorder">
         <div className={`fll marginTMyday lineTasks`} id="sizeText">
           <p className="textColorImportant">
-            <i className="fa-regular fa-star ipadding"></i>
+            {!display ? (
+              <span
+                className="fa-solid fa-bars ipadding"
+                onClick={displayHandler}
+              />
+            ) : (
+              <i className="fa-regular fa-star ipadding"></i>
+            )}
             <span>Important</span>
             <span
               className="fa-solid fa-ellipsis dotpadding"
@@ -115,11 +102,14 @@ function Important() {
           changeHandler={changeHandler}
           blurHandler={blurHandler}
           formIsvalid={formIsvalid}
+          showDateHandler={showDateHandler}
         />
-
+        {/* ///////////datepicker//////////// */}
+        {datePicker}
         {/* /////////ht task list///////// */}
         <div className="tasksArrList">
-          {[...tasksImportant].reverse().map((ele) => {
+          {displayTasksToday}
+          {/* {[...tasksImportant].reverse().map((ele) => {
             return (
               <div
                 className="borderTasksArr"
@@ -163,7 +153,7 @@ function Important() {
                 </div>
               </div>
             );
-          })}
+          })} */}
         </div>
       </div>
     </React.Fragment>

@@ -7,21 +7,30 @@ import Planned from "./component/Planned/Planned";
 import Tasks from "./component/Tasks/Tasks";
 import Important from "./component/Important/Important";
 import "./App.css";
+
 function App() {
   return (
-    <div className="App">
+    <div>
       <NavBar />
-      <MenuRow>
-        <main>
-          <Routes>
-            <Route path="/" element={<Navigate to="/tasks/myday" />} />
-            <Route path="/tasks/myday" element={<MyDay />} />
-            <Route path="/tasks/important" element={<Important />} />
-            <Route path="/tasks/planned" element={<Planned />} />
-            <Route path="/tasks/inbox" element={<Tasks />} />
-          </Routes>
-        </main>
-      </MenuRow>
+      <main>
+        <Routes>
+          <Route path="/" element={<Navigate to="/tasks/myday" />} />
+          <Route path="/tasks/*" element={<MenuRow />}>
+            <Route path="myday/*" element={<MyDay />}>
+              <Route path="id/AQMkADAwATNiZmYAZC00MzY1LTNjYmUtMDACLT=/details" />
+            </Route>
+            <Route path="important" element={<Important />}>
+              <Route path="id/AQMkADAwATNiZmYAZC00MzY1LTNjYmUtMDACLT=/details" />
+            </Route>
+            <Route path="planned" element={<Planned />}>
+              <Route path="id/AQMkADAwATNiZmYAZC00MzY1LTNjYmUtMDACLT=/details" />
+            </Route>
+            <Route path="inbox" element={<Tasks />}>
+              <Route path="id/AQMkADAwATNiZmYAZC00MzY1LTNjYmUtMDACLT=/details" />
+            </Route>
+          </Route>
+        </Routes>
+      </main>
     </div>
   );
 }

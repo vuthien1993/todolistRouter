@@ -1,19 +1,20 @@
 .today {
   margin-top: 10px;
   height: 30px;
+  font-size: 14px;
 }
 .today:hover {
   cursor: pointer;
 }
 .textBlue {
-  color: blue;
+  color: #2564cf;
 }
 .textBlue span,
 .later span {
   padding: 3px;
 }
 .textRed {
-  color: red;
+  color: #a80000;
 }
 .textRed span {
   padding: 3px;

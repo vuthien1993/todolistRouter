@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { importantAction } from "../Redux/important";
-
 const useShowTaskDate = (tasksArrToday, tasksArrCompleted) => {
   const timeNow = new Date().getDate();
 
@@ -12,7 +12,6 @@ const useShowTaskDate = (tasksArrToday, tasksArrCompleted) => {
   const displayImportant = useSelector(
     (state) => state.important.displayImportant
   );
-  const displayPlanned = useSelector((state) => state.important.displayPlanned);
   const displayTasks = useSelector((state) => state.important.displayTasks);
   const showCompleted = useSelector((state) => state.important.showCompleted);
 
@@ -21,18 +20,7 @@ const useShowTaskDate = (tasksArrToday, tasksArrCompleted) => {
   );
   const idDetail = useSelector((state) => state.important.idTasks);
   const showPlanned = useSelector((state) => state.important.showPlanned);
-  const showPlannedLater = useSelector(
-    (state) => state.important.showPlannedLater
-  );
-  const showPlannedWeek = useSelector(
-    (state) => state.important.showPlannedWeek
-  );
-  const showTimeOut = useSelector(
-    (state) => state.important.showPlannedTimeOut
-  );
-  const showPlannedTomorow = useSelector(
-    (state) => state.important.showPlannedTomorow
-  );
+
   const dispatch = useDispatch();
   const showPlannedHandler = () => {
     dispatch(importantAction.showPlanned());
@@ -88,15 +76,29 @@ const useShowTaskDate = (tasksArrToday, tasksArrCompleted) => {
     </span>
   );
   const datePlannedTomorow = (
-    <span className="textBlue">
+    <span className="textGray">
       <span className="fa-solid fa-calendar-days" />
       <span>Tomorow</span>
     </span>
   );
 
   const iconMyday = (
-    <span>
-      <span className="fa-regular fa-sun" />
+    <span className="textGray">
+      <svg
+        className="fluentIcon ___12fm75w f1w7gpdv fez10in fg4l7m0"
+        fill="currentColor"
+        aria-hidden="true"
+        width="20"
+        height="20"
+        viewBox="0 0 20 20"
+        xmlns="http://www.w3.org/2000/svg"
+        focusable="false"
+      >
+        <path
+          d="M8 1c.28 0 .5.22.5.5v1a.5.5 0 01-1 0v-1c0-.28.22-.5.5-.5zm0 10a3 3 0 100-6 3 3 0 000 6zm0-1a2 2 0 110-4 2 2 0 010 4zm6.5-1.5a.5.5 0 000-1h-1a.5.5 0 000 1h1zM8 13c.28 0 .5.22.5.5v1a.5.5 0 01-1 0v-1c0-.28.22-.5.5-.5zM2.5 8.5a.5.5 0 000-1h-1a.5.5 0 000 1h1zm.65-5.35c.2-.2.5-.2.7 0l1 1a.5.5 0 11-.7.7l-1-1a.5.5 0 010-.7zm.7 9.7a.5.5 0 11-.7-.7l1-1a.5.5 0 01.7.7l-1 1zm9-9.7a.5.5 0 00-.7 0l-1 1a.5.5 0 00.7.7l1-1a.5.5 0 000-.7zm-.7 9.7a.5.5 0 00.7-.7l-1-1a.5.5 0 00-.7.7l1 1z"
+          fill="currentColor"
+        ></path>
+      </svg>
       My Day
     </span>
   );
@@ -118,7 +120,9 @@ const useShowTaskDate = (tasksArrToday, tasksArrCompleted) => {
       {[...tasksArrToday].reverse().map((ele) => {
         return (
           <div
-            className="borderTasksArr"
+            className={`${
+              ele.id === idDetail ? "borderTasksArrActive" : "borderTasksArr"
+            }`}
             key={ele.id}
             onClick={() => showTasksDetailHandler(ele)}
           >
@@ -130,67 +134,76 @@ const useShowTaskDate = (tasksArrToday, tasksArrCompleted) => {
                 }}
               ></i>
             </div>
-            <div className="fll taskName">
-              <span
-                className={`${
-                  !ele.isMyday &&
-                  displayStep(ele).stepDetail.length === 0 &&
-                  !ele.isPlanned &&
-                  "tasksLine"
-                }`}
-              >
-                {ele.tasks}
-              </span>
-              <br />
-              <span className="mydayFontsize">
-                {ele.isPlanned &&
-                  !ele.timeOut &&
-                  ele.time === timeNow &&
-                  datePlannedToday}
-                {ele.isPlanned &&
-                  !ele.timeOut &&
-                  ele.time === timeNow + 1 &&
-                  datePlannedTomorow}
-                {ele.isPlanned && !ele.timeOut && ele.time > timeNow + 1 && (
-                  <span className="later">
-                    <span className="fa-solid fa-calendar-days" />
-                    <span>{ele.timed}</span>
-                  </span>
-                )}
-                {ele.isImportant && displayImportant && <span>Tasks</span>}
-                {ele.isMyday && displayMyday && <span>Tasks</span>}
-                {ele.isMyday && displayTasks && iconMyday}
-                {ele.timeOut && (
-                  <span className="textRed">
-                    <span className="fa-solid fa-calendar-days" />
-                    <span> {ele.timed}</span>
-                  </span>
-                )}
-                {displayStep(ele).stepDetail.length !== 0 &&
-                  ele.isMyday === true && (
-                    <span>
-                      .{" "}
-                      {displayStep(ele).stepDetail.length ===
-                        displayStep(ele).stepDetailCompleted.length && (
-                        <span className="fa-regular fa-circle-check" />
-                      )}{" "}
-                      {displayStep(ele).stepDetailCompleted.length} of{" "}
-                      {displayStep(ele).stepDetail.length}
+            <Link to="id/AQMkADAwATNiZmYAZC00MzY1LTNjYmUtMDACLT=/details">
+              <div className="fll taskName">
+                <span
+                  className={`${
+                    !ele.isMyday &&
+                    displayStep(ele).stepDetail.length === 0 &&
+                    !ele.isPlanned &&
+                    !ele.timeOut &&
+                    displayTasks &&
+                    ele.time === timeNow &&
+                    "tasksLine"
+                  }`}
+                >
+                  <span className="fontSize14">{ele.tasks}</span>
+                </span>
+                <br />
+                <span className="mydayFontsize">
+                  {ele.isMyday && displayMyday && (
+                    <span className="textGray">Tasks</span>
+                  )}
+                  {ele.isImportant && displayImportant && (
+                    <span className="textGray">Tasks</span>
+                  )}
+
+                  {ele.isPlanned &&
+                    !ele.timeOut &&
+                    ele.time === timeNow &&
+                    datePlannedToday}
+                  {!ele.timeOut &&
+                    ele.time === timeNow + 1 &&
+                    datePlannedTomorow}
+                  {!ele.timeOut && ele.time > timeNow + 1 && (
+                    <span className="later textGray">
+                      <span className="fa-solid fa-calendar-days" />
+                      <span>{ele.timed}</span>
                     </span>
                   )}
-                {displayStep(ele).stepDetail.length !== 0 &&
-                  ele.isMyday === false && (
-                    <span>
-                      {displayStep(ele).stepDetail.length ===
-                        displayStep(ele).stepDetailCompleted.length && (
-                        <span className="fa-regular fa-circle-check" />
-                      )}{" "}
-                      {displayStep(ele).stepDetailCompleted.length} of{" "}
-                      {displayStep(ele).stepDetail.length}
+                  {ele.isMyday && displayTasks && iconMyday}
+                  {ele.timeOut && (
+                    <span className="textRed">
+                      <span className="fa-solid fa-calendar-days" />
+                      <span> {ele.timed}</span>
                     </span>
                   )}
-              </span>
-            </div>
+                  {displayStep(ele).stepDetail.length !== 0 &&
+                    ele.isMyday === true && (
+                      <span className="textGray">
+                        .
+                        {displayStep(ele).stepDetail.length ===
+                          displayStep(ele).stepDetailCompleted.length && (
+                          <span className="fa-regular fa-circle-check" />
+                        )}
+                        {displayStep(ele).stepDetailCompleted.length} of{" "}
+                        {displayStep(ele).stepDetail.length}
+                      </span>
+                    )}
+                  {displayStep(ele).stepDetail.length !== 0 &&
+                    ele.isMyday === false && (
+                      <span className="textGray">
+                        {displayStep(ele).stepDetail.length ===
+                          displayStep(ele).stepDetailCompleted.length && (
+                          <span className="fa-regular fa-circle-check" />
+                        )}{" "}
+                        {displayStep(ele).stepDetailCompleted.length} of{" "}
+                        {displayStep(ele).stepDetail.length}
+                      </span>
+                    )}
+                </span>
+              </div>
+            </Link>
             <div className={`fll iconLineStar`}>
               {!ele.isImportant && (
                 <i
@@ -233,7 +246,9 @@ const useShowTaskDate = (tasksArrToday, tasksArrCompleted) => {
       {tasksArrCompleted.map((ele) => {
         return (
           <div
-            className="borderTasksArr"
+            className={`${
+              ele.id === idDetail ? "borderTasksArrActive" : "borderTasksArr"
+            }`}
             key={ele.id}
             onClick={() => showTasksDetailHandler(ele)}
           >
@@ -244,58 +259,77 @@ const useShowTaskDate = (tasksArrToday, tasksArrCompleted) => {
                 onClick={(event) => isDoneHandler(ele, event)}
               ></i>
             </div>
-            <div className="fll taskName">
-              <span className="checked"> {ele.tasks}</span>
-              <br />
-              <span className="mydayFontsize">
-                {ele.isPlanned &&
-                  !ele.timeOut &&
-                  ele.time === timeNow &&
-                  datePlannedToday}
-                {ele.isPlanned &&
-                  !ele.timeOut &&
-                  ele.time === timeNow + 1 &&
-                  datePlannedTomorow}
-                {ele.isPlanned && !ele.timeOut && ele.time > timeNow + 1 && (
-                  <span className="later">
-                    <span className="fa-solid fa-calendar-days" />
-                    <span>{ele.timed}</span>
-                  </span>
-                )}
-                {ele.isImportant && displayImportant && <span>Tasks</span>}
-                {ele.isMyday && displayMyday && <span>Tasks</span>}
-                {ele.isMyday && displayTasks && iconMyday}
-                {ele.timeOut && (
-                  <span className="textRed">
-                    <span className="fa-solid fa-calendar-days" />
-                    <span> {ele.timed}</span>
-                  </span>
-                )}
-                {displayStep(ele).stepDetail.length !== 0 &&
-                  ele.isMyday === true && (
-                    <span>
-                      .{" "}
-                      {displayStep(ele).stepDetail.length ===
-                        displayStep(ele).stepDetailCompleted.length && (
-                        <span className="fa-regular fa-circle-check" />
-                      )}{" "}
-                      {displayStep(ele).stepDetailCompleted.length} of{" "}
-                      {displayStep(ele).stepDetail.length}
+            <Link to="id/AQMkADAwATNiZmYAZC00MzY1LTNjYmUtMDACLT=/details">
+              <div className="fll taskName">
+                <span
+                  className={`${
+                    !ele.isMyday &&
+                    displayStep(ele).stepDetail.length === 0 &&
+                    !ele.isPlanned &&
+                    !ele.timeOut &&
+                    displayTasks &&
+                    ele.time === timeNow &&
+                    "tasksLine"
+                  }`}
+                >
+                  <span className="checked fontSize14"> {ele.tasks}</span>
+                </span>
+                <br />
+                <span className="mydayFontsize">
+                  {ele.isImportant && displayImportant && (
+                    <span className="textGray">Tasks</span>
+                  )}
+                  {ele.isMyday && displayMyday && (
+                    <span className="textGray">Tasks</span>
+                  )}
+                  {ele.isPlanned &&
+                    !ele.timeOut &&
+                    ele.time === timeNow &&
+                    datePlannedToday}
+                  {ele.isPlanned &&
+                    !ele.timeOut &&
+                    ele.time === timeNow + 1 &&
+                    datePlannedTomorow}
+                  {ele.isPlanned && !ele.timeOut && ele.time > timeNow + 1 && (
+                    <span className="later textGray">
+                      <span className="fa-solid fa-calendar-days" />
+                      <span>{ele.timed}</span>
                     </span>
                   )}
-                {displayStep(ele).stepDetail.length !== 0 &&
-                  ele.isMyday === false && (
-                    <span>
-                      {displayStep(ele).stepDetail.length ===
-                        displayStep(ele).stepDetailCompleted.length && (
-                        <span className="fa-regular fa-circle-check" />
-                      )}{" "}
-                      {displayStep(ele).stepDetailCompleted.length} of{" "}
-                      {displayStep(ele).stepDetail.length}
+
+                  {ele.isMyday && displayTasks && iconMyday}
+                  {ele.timeOut && (
+                    <span className="textRed">
+                      <span className="fa-solid fa-calendar-days" />
+                      <span> {ele.timed}</span>
                     </span>
                   )}
-              </span>
-            </div>
+                  {displayStep(ele).stepDetail.length !== 0 &&
+                    ele.isMyday === true && (
+                      <span className="textGray">
+                        .{" "}
+                        {displayStep(ele).stepDetail.length ===
+                          displayStep(ele).stepDetailCompleted.length && (
+                          <span className="fa-regular fa-circle-check" />
+                        )}
+                        {displayStep(ele).stepDetailCompleted.length} of{" "}
+                        {displayStep(ele).stepDetail.length}
+                      </span>
+                    )}
+                  {displayStep(ele).stepDetail.length !== 0 &&
+                    ele.isMyday === false && (
+                      <span className="textGray">
+                        {displayStep(ele).stepDetail.length ===
+                          displayStep(ele).stepDetailCompleted.length && (
+                          <span className="fa-regular fa-circle-check" />
+                        )}{" "}
+                        {displayStep(ele).stepDetailCompleted.length} of{" "}
+                        {displayStep(ele).stepDetail.length}
+                      </span>
+                    )}
+                </span>
+              </div>
+            </Link>
             <div className={`fll iconLineStar`}>
               {!ele.isImportant && (
                 <i

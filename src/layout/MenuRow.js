@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
+import { Outlet } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import useInput from "../hook/use-input";
@@ -7,7 +8,12 @@ import { importantAction } from "../Redux/important";
 import "./MenuRow.css";
 import { nextStepAction } from "../Redux/nextStep";
 import TaskDetail from "./TaskDetail";
+import useWrapper from "../hook/use-wrapper";
 function MenuRow(props) {
+  const dispatch = useDispatch();
+
+  const { timeNow, monthNow } = useWrapper();
+  const display = useSelector((state) => state.nextStep.display);
   const idDetail = useSelector((state) => state.important.idTasks);
   const isDone = useSelector((state) => state.important.isDone);
   const isMyday = useSelector((state) => state.important.isMyday);
@@ -23,13 +29,23 @@ function MenuRow(props) {
   const plannedTasksArr = tasksArrTotal.filter(
     (ele) => ele.isPlanned === true && ele.isDone !== true
   );
-  const [display, setDisplay] = useState(true);
-  const displayMyday = useSelector((state) => state.important.displayMyday);
-  const displayImportant = useSelector(
-    (state) => state.important.displayImportant
+  const plannedTasksArrTomorow = tasksArr.filter(
+    (ele) =>
+      ele.timeOut === false &&
+      ele.time === timeNow + 1 &&
+      ele.month === monthNow
   );
-  const displayPlanned = useSelector((state) => state.important.displayPlanned);
-  const displayTasks = useSelector((state) => state.important.displayTasks);
+  const plannedTasksArrWeek = tasksArr.filter(
+    (ele) =>
+      ele.timeOut === false && ele.time < timeNow + 7 && ele.time >= timeNow + 2
+  );
+  const plannedTasksArrLater = tasksArr.filter(
+    (ele) => ele.timeOut === false && ele.time >= timeNow + 7
+  );
+  const plannedTimeOut = tasksArr.filter((ele) => ele.timeOut === true);
+  useEffect(() => {
+    dispatch(importantAction.checkTimeOut({ timeNow, monthNow }));
+  }, [timeNow, monthNow]);
 
   const mydayClickHandler = () => {
     dispatch(importantAction.hidenDetail());
@@ -49,10 +65,9 @@ function MenuRow(props) {
     dispatch(importantAction.displayTasks());
   };
   const displayHandler = () => {
-    setDisplay((pre) => !pre);
+    dispatch(nextStepAction.displayHandler());
   };
 
-  const dispatch = useDispatch();
   const tasks = useSelector((state) => state.important.tasksName);
   console.log(tasks);
   const showTasksDetail = useSelector(
@@ -123,110 +138,147 @@ function MenuRow(props) {
   const isMydayHandler = () => {
     dispatch(importantAction.isMyday({ isMyday, idDetail }));
   };
-  const classShowDetail = showTasksDetail ? "main-content1" : "main-content";
+
   return (
     <React.Fragment>
       <div className="borderNavRow">
-        <div className="fll leftColumn">
-          <div>
-            <div className="siderbar">
-              <i className="fa-solid fa-bars" onClick={displayHandler}></i>
-            </div>
-            {display && (
+        {display && (
+          <div className="fll leftColumn">
+            <div>
+              <div className="siderbar">
+                <i className="fa-solid fa-bars" onClick={displayHandler}></i>
+              </div>
               <div className="siderbarContent">
-                <NavLink to="/tasks/myday">
-                  <div
-                    onClick={mydayClickHandler}
-                    className={`${
-                      displayMyday ? "siderbarItemActive" : "siderbarItem"
-                    }`}
-                  >
-                    <div className="fll widthContent">
-                      <i className="fa-regular fa-sun"></i> <span>My Day</span>
-                    </div>
-                    <div className="fll lineNumber">
-                      {mydayTasksArr.length !== 0 && (
-                        <span>{mydayTasksArr.length}</span>
-                      )}
-                    </div>
+                <NavLink
+                  className={(navData) =>
+                    navData.isActive ? "siderbarItemActive" : "siderbarItem"
+                  }
+                  onClick={mydayClickHandler}
+                  to="myday"
+                >
+                  <div className="fll widthContent">
+                    <svg
+                      className="fluentIcon ___12fm75w f1w7gpdv fez10in fg4l7m0"
+                      fill="currentColor"
+                      aria-hidden="true"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                      focusable="false"
+                    >
+                      <path
+                        d="M10 2c.28 0 .5.22.5.5v1a.5.5 0 01-1 0v-1c0-.28.22-.5.5-.5zm0 12a4 4 0 100-8 4 4 0 000 8zm0-1a3 3 0 110-6 3 3 0 010 6zm7.5-2.5a.5.5 0 000-1h-1a.5.5 0 000 1h1zM10 16c.28 0 .5.22.5.5v1a.5.5 0 01-1 0v-1c0-.28.22-.5.5-.5zm-6.5-5.5a.5.5 0 000-1H2.46a.5.5 0 000 1H3.5zm.65-6.35c.2-.2.5-.2.7 0l1 1a.5.5 0 11-.7.7l-1-1a.5.5 0 010-.7zm.7 11.7a.5.5 0 01-.7-.7l1-1a.5.5 0 01.7.7l-1 1zm11-11.7a.5.5 0 00-.7 0l-1 1a.5.5 0 00.7.7l1-1a.5.5 0 000-.7zm-.7 11.7a.5.5 0 00.7-.7l-1-1a.5.5 0 00-.7.7l1 1z"
+                        fill="currentColor"
+                      ></path>
+                    </svg>
+                    <span>My Day</span>
+                  </div>
+                  <div className="fll lineNumber">
+                    {mydayTasksArr.length !== 0 && (
+                      <span>{mydayTasksArr.length}</span>
+                    )}
                   </div>
                 </NavLink>
-                <NavLink to="/tasks/important">
-                  <div
-                    onClick={impotantClickHandler}
-                    className={` ${
-                      displayImportant ? "siderbarItemActive" : "siderbarItem"
-                    }`}
-                  >
-                    <div className="fll widthContent">
-                      <i className="fa-regular fa-star"></i>{" "}
-                      <span>Important</span>
-                    </div>
-                    <div className="fll lineNumber">
-                      {tasksImportant.length !== 0 && (
-                        <span>{tasksImportant.length}</span>
-                      )}
-                    </div>
+                <NavLink
+                  className={(navData) =>
+                    navData.isActive ? "siderbarItemActive" : "siderbarItem"
+                  }
+                  onClick={impotantClickHandler}
+                  to="important"
+                >
+                  <div className="fll widthContent">
+                    <i className="fa-regular fa-star"></i>{" "}
+                    <span>Important</span>
+                  </div>
+                  <div className="fll lineNumber">
+                    {tasksImportant.length !== 0 && (
+                      <span>{tasksImportant.length}</span>
+                    )}
                   </div>
                 </NavLink>
-                <NavLink to="/tasks/planned">
-                  <div
-                    onClick={plannedClickHandler}
-                    className={` ${
-                      displayPlanned ? "siderbarItemActive" : "siderbarItem"
-                    }`}
-                  >
-                    <div className="fll widthContent">
-                      <i className="fa-solid fa-calendar-days"></i>
-                      <span>Planned</span>
-                    </div>
-                    <div className="fll lineNumber">
-                      {plannedTasksArr.length !== 0 && (
-                        <span>{plannedTasksArr.length}</span>
-                      )}
-                    </div>
+                <NavLink
+                  className={(navData) =>
+                    navData.isActive ? "siderbarItemActive" : "siderbarItem"
+                  }
+                  onClick={plannedClickHandler}
+                  to="planned"
+                >
+                  <div className="fll widthContent">
+                    <i className="fa-solid fa-calendar-days"></i>
+                    <span>Planned</span>
+                  </div>
+                  <div className="fll lineNumber">
+                    {plannedTasksArr.length +
+                      plannedTasksArrTomorow.length +
+                      plannedTasksArrWeek.length +
+                      plannedTasksArrLater.length +
+                      plannedTimeOut.length !==
+                      0 && (
+                      <span>
+                        {plannedTasksArr.length +
+                          plannedTasksArrTomorow.length +
+                          plannedTasksArrWeek.length +
+                          plannedTasksArrLater.length +
+                          plannedTimeOut.length}
+                      </span>
+                    )}
                   </div>
                 </NavLink>
 
-                <NavLink to="/tasks/inbox">
-                  <div
-                    onClick={taskClickHandler}
-                    className={` ${
-                      displayTasks ? "siderbarItemActive" : "siderbarItem"
-                    }`}
-                  >
-                    <div className="fll widthContent">
-                      <i className="fa-solid fa-house"></i>
-                      <span>Tasks</span>
-                    </div>
-                    <div className="fll lineNumber">
-                      {tasksArr.length !== 0 && <span>{tasksArr.length}</span>}
-                    </div>
+                <NavLink
+                  className={(navData) =>
+                    navData.isActive ? "siderbarItemActive" : "siderbarItem"
+                  }
+                  onClick={taskClickHandler}
+                  to="inbox"
+                >
+                  <div className="fll widthContent">
+                    <i className="fa-solid fa-house"></i>
+                    <span>Tasks</span>
+                  </div>
+                  <div className="fll lineNumber">
+                    {tasksArr.length !== 0 && <span>{tasksArr.length}</span>}
                   </div>
                 </NavLink>
               </div>
-            )}
+            </div>
           </div>
+        )}
+        <div
+          className={`fll  ${
+            display
+              ? showTasksDetail
+                ? "main-content1"
+                : "main-content"
+              : showTasksDetail
+              ? "main-content3"
+              : " main-content2"
+          } 
+          `}
+        >
+          <Outlet />
         </div>
-        <div className={`fll ${classShowDetail}`}>{props.children}</div>
         {showTasksDetail && (
-          <TaskDetail
-            importantDetail={importantDetail}
-            isMyday={isMyday}
-            isMydayHandler={isMydayHandler}
-            isDone={isDone}
-            isDoneHandler={isDoneHandler}
-            tasks={tasks}
-            isImportant={isImportant}
-            stepDetail={stepDetail}
-            enteredStep={enteredStep}
-            completedHandler={completedHandler}
-            deleteStepHandler={deleteStepHandler}
-            submitHandler={submitHandler}
-            changeHandler={changeHandler}
-            hiddenTasksDetail={hiddenTasksDetail}
-            deleteTaskHandler={deleteTaskHandler}
-          />
+          <React.Fragment>
+            <TaskDetail
+              importantDetail={importantDetail}
+              isMyday={isMyday}
+              isMydayHandler={isMydayHandler}
+              isDone={isDone}
+              isDoneHandler={isDoneHandler}
+              tasks={tasks}
+              isImportant={isImportant}
+              stepDetail={stepDetail}
+              enteredStep={enteredStep}
+              completedHandler={completedHandler}
+              deleteStepHandler={deleteStepHandler}
+              submitHandler={submitHandler}
+              changeHandler={changeHandler}
+              hiddenTasksDetail={hiddenTasksDetail}
+              deleteTaskHandler={deleteTaskHandler}
+            />
+          </React.Fragment>
         )}
       </div>
     </React.Fragment>

@@ -21,10 +21,13 @@ button:disabled {
   background-color: #ccc;
   cursor: not-allowed;
   border: #ccc;
-  color: #3f3f3f;
+  color: #a19f9d;
 }
 .textGray {
   color: gray;
+}
+.textGray span {
+  padding: 3px;
 }
 ::-webkit-input-placeholder {
   color: blue;
@@ -37,4 +40,10 @@ button:disabled {
 }
 .textB {
   font-weight: 600;
+}
+.fontSize14 {
+  font-size: 14px;
+}
+.fontSize12 {
+  font-size: 12px;
 }

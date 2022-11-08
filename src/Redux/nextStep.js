@@ -3,11 +3,15 @@ import { createSlice } from "@reduxjs/toolkit";
 const nextStepArr = JSON.parse(localStorage.getItem("nextStepArr")) ?? [];
 const initialState = {
   nextStepArr,
+  display: true,
 };
 const nextStep = createSlice({
   name: "nextStep",
   initialState,
   reducers: {
+    displayHandler(state) {
+      state.display = !state.display;
+    },
     //add step
     addStep(state, { payload }) {
       const newStep = payload.stepItem;
