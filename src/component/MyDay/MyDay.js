@@ -19,6 +19,7 @@ function MyDay(props) {
   //ht modal select date su dung customhook
   const { value, showDateHandler, datePicker, time, timeNow, month, monthNow } =
     useWrapper();
+  console.log(time);
   const tasksArr = useSelector((state) => state.important.tasksArr);
   const mydayTasksArr = tasksArr.filter(
     (ele) => ele.isMyday === true && ele.isDone !== true
