@@ -6,7 +6,7 @@
 }
 .lineTasks1 {
   line-height: 72px;
-  width: 60%;
+  width: 40%;
   text-align: right;
   padding-right: 10px;
 }
@@ -16,7 +16,7 @@
 #sizeText {
   font-weight: 600;
   font-size: 20px;
-  width: 40%;
+  width: 60%;
 }
 #btnAdd {
   width: 50%;

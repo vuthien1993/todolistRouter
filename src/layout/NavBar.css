@@ -10,7 +10,7 @@
 }
 .navIcon {
   text-align: center;
-  width: 3.59%;
+  width: 48px;
   height: 48px;
 }
 .navIcon:hover {
@@ -198,4 +198,45 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;
+}
+@media screen and (max-width: 1020px) {
+  .navSearchInput {
+    width: 69%;
+  }
+}
+@media screen and (max-width: 910px) {
+  .navSearchInput input {
+    display: none;
+  }
+  .navSearchInput {
+    /* text-align: center; */
+    /* height: 48px; */
+    text-align: left;
+    width: 66%;
+    line-height: 48px;
+  }
+  .navSearchInput button {
+    /* height: 32px; */
+    line-height: 32px;
+    border: none;
+    background: white;
+    color: blue;
+    border-radius: 5px;
+    text-align: center;
+    width: 32px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .navSearchInput {
+    text-align: left;
+    width: 50%;
+    line-height: 48px;
+  }
+}
+@media screen and (max-width: 510px) {
+  .navSearchInput {
+    text-align: left;
+    width: 30%;
+    line-height: 48px;
+  }
 }

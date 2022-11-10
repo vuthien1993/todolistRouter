@@ -112,6 +112,16 @@
   height: 10px;
   background-color: #faf9f7;
 }
+.nameDetail {
+  margin-left: 12px;
+  margin-top: 5px;
+  width: 50%;
+}
+.startDetail {
+  text-align: right;
+  width: 42%;
+  margin-top: 5px;
+}
 .tasksDetailX i,
 .tasksDetailInput i {
   padding-right: 10px;
@@ -222,4 +232,39 @@
 }
 .closeMyday:hover {
   cursor: pointer;
+}
+@media screen and (max-width: 910px) {
+  .dark {
+    background-color: #aaa9a9 !important;
+  }
+  .leftColumn {
+    width: 200px;
+    height: calc(100vh - 48px);
+    position: fixed;
+    background: white;
+  }
+  .main-content {
+    overflow: hidden;
+    height: calc(100vh - 48px);
+    background-color: #faf9f7;
+    box-shadow: 0 0 1px 0 grey;
+    width: 100%;
+  }
+  .main-content3 {
+    overflow: hidden;
+    height: calc(100vh - 48px);
+    background-color: #faf9f7;
+    width: 100%;
+    box-shadow: 0 0 1px 0 grey;
+  }
+  .tasksDetail {
+    position: fixed;
+    right: 0px;
+    width: 360px;
+    height: calc(100vh - 58px);
+    padding-bottom: 40px;
+    overflow-y: scroll;
+    background: #faf9f7;
+    box-shadow: 0 0 3px 0 grey;
+  }
 }

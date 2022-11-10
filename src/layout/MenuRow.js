@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { Outlet } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
@@ -11,8 +11,41 @@ import TaskDetail from "./TaskDetail";
 import useWrapper from "../hook/use-wrapper";
 function MenuRow(props) {
   const dispatch = useDispatch();
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+      if (window.innerWidth < 910) {
+        dispatch(nextStepAction.displayMobile());
+      }
+      dispatch(nextStepAction.setWidth({ width }));
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+  const useOutsideAlerter = (ref) => {
+    useEffect(() => {
+      /**
+       * Alert if clicked on outside of element
+       */
+      function handleClickOutside(event) {
+        if (ref.current && !ref.current.contains(event.target)) {
+          dispatch(nextStepAction.displayMobile());
+          dispatch(importantAction.hidenDetail());
+        }
+      }
+      // Bind the event listener
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        // Unbind the event listener on clean up
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }, [ref]);
+  };
+  const wrapperRef = useRef(null);
+  useOutsideAlerter(wrapperRef);
 
   const { timeNow, monthNow } = useWrapper();
+  const width = useSelector((state) => state.nextStep.width);
   const display = useSelector((state) => state.nextStep.display);
   const idDetail = useSelector((state) => state.important.idTasks);
   const isDone = useSelector((state) => state.important.isDone);
@@ -143,7 +176,7 @@ function MenuRow(props) {
     <React.Fragment>
       <div className="borderNavRow">
         {display && (
-          <div className="fll leftColumn">
+          <div className="fll leftColumn" ref={width < 910 ? wrapperRef : null}>
             <div>
               <div className="siderbar">
                 <i className="fa-solid fa-bars" onClick={displayHandler}></i>
@@ -249,11 +282,11 @@ function MenuRow(props) {
           className={`fll  ${
             display
               ? showTasksDetail
-                ? "main-content1"
-                : "main-content"
+                ? "main-content1 dark"
+                : "main-content dark"
               : showTasksDetail
-              ? "main-content3"
-              : " main-content2"
+              ? "main-content3 "
+              : " main-content2 "
           } 
           `}
         >
@@ -262,6 +295,8 @@ function MenuRow(props) {
         {showTasksDetail && (
           <React.Fragment>
             <TaskDetail
+              width={width}
+              wrapperRef={wrapperRef}
               importantDetail={importantDetail}
               isMyday={isMyday}
               isMydayHandler={isMydayHandler}

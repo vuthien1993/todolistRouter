@@ -16,10 +16,19 @@ function App() {
         <Routes>
           <Route path="/" element={<Navigate to="/tasks/myday" />} />
           <Route path="/tasks/*" element={<MenuRow />}>
-            <Route path="myday/*" element={<MyDay />}></Route>
-            <Route path="important" element={<Important />}></Route>
-            <Route path="planned" element={<Planned />}></Route>
-            <Route path="inbox" element={<Tasks />}></Route>
+            <Route path="myday" element={<MyDay />}>
+              <Route path="id/AKDJSDSSSSSSJDNKSDSDF=DETAIL" />
+            </Route>
+            <Route path="important" element={<Important />}>
+              <Route path="id/AKDJSDSSSSSSJDNKSDSDF=DETAIL" />
+            </Route>
+            <Route path="planned" element={<Planned />}>
+              <Route path="id/AKDJSDSSSSSSJDNKSDSDF=DETAIL" />
+            </Route>
+            <Route path="inbox" element={<Tasks />}>
+              {" "}
+              <Route path="id/AKDJSDSSSSSSJDNKSDSDF=DETAIL" />
+            </Route>
           </Route>
         </Routes>
       </main>

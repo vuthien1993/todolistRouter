@@ -5,9 +5,9 @@ import useInput from "../../hook/use-input";
 import Submit from "../MyDay/Submit";
 import useWrapper from "../../hook/use-wrapper";
 import moment from "moment/moment";
-import useShowTaskDate from "../../hook/use-showtaskdate";
 import { nextStepAction } from "../../Redux/nextStep";
 import "./Tasks.css";
+import DisplayTasks from "../DisplayTasks/DisplayTasks";
 function Tasks(props) {
   const dispatch = useDispatch();
   const display = useSelector((state) => state.nextStep.display);
@@ -32,8 +32,6 @@ function Tasks(props) {
   if (enteredTasksIsvalid) {
     formIsvalid = true;
   }
-  const { displayTasksToday, tasksCompleted, displayTasksCompleted } =
-    useShowTaskDate(tasksArr, tasksArrCompleted);
   const randomIntFromInterval = (min, max) => {
     // min and max included
     return Math.floor(Math.random() * (max - min + 1) + min);
@@ -103,12 +101,14 @@ function Tasks(props) {
                 ></path>
               </svg>
             </span>
-            <span className="fontSize14">Sort</span>
+            <span className="fontSize14 hiddenSort">Sort</span>
           </span>
         </div>
       </div>
       <div className="formSubmitMyday">
         <Submit
+          time={time}
+          timeNow={timeNow}
           showDateHandler={showDateHandler}
           submitHandler={submitHandler}
           entered={enteredTasks}
@@ -120,11 +120,10 @@ function Tasks(props) {
         {datePicker}
         {/* ///////// hiển thị tất cả các tasks///////// */}
         <div className="tasksArrList">
-          {displayTasksToday}
-          <br />
-          {/* Completed */}
-          {tasksCompleted}
-          {displayTasksCompleted}
+          <DisplayTasks
+            tasksArrCompleted={tasksArrCompleted}
+            tasksArrToday={tasksArr}
+          />
         </div>
       </div>
     </React.Fragment>

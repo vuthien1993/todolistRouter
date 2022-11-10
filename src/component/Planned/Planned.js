@@ -5,10 +5,10 @@ import useInput from "../../hook/use-input";
 import moment from "moment/moment";
 import Submit from "../MyDay/Submit";
 import useWrapper from "../../hook/use-wrapper";
-import useShowTaskDate from "../../hook/use-showtaskdate";
 import { nextStepAction } from "../../Redux/nextStep";
 import "./Planned.css";
 import DisplayDueDate from "./DisplayDueDate";
+import DisplayTasks from "../DisplayTasks/DisplayTasks";
 
 function Planned() {
   const dispatch = useDispatch();
@@ -31,12 +31,10 @@ function Planned() {
       ele.time === timeNow &&
       ele.month === monthNow
   );
+  const showPlannedHandler = () => {
+    dispatch(importantAction.showPlanned());
+  };
 
-  //ht tasks sd custom hook
-  const { tasksToday, displayTasksToday } = useShowTaskDate(
-    plannedTasksArrToday,
-    []
-  );
   //khai bao su dung custom hook
   const {
     value: enteredPlanned,
@@ -105,6 +103,8 @@ function Planned() {
         {/* //////////////submit  ///////////////// */}
         <div className="formSubmitMyday">
           <Submit
+            time={time}
+            timeNow={timeNow}
             submitHandler={submitHandler}
             entered={enteredPlanned}
             changeHandler={changeHandler}
@@ -118,10 +118,26 @@ function Planned() {
 
           <div className="tasksArrList">
             {/* /////////today///////// */}
+            {plannedTasksArrToday.length > 0 && (
+              <div className="today" onClick={showPlannedHandler}>
+                {!showPlanned ? (
+                  <span className="fa-solid fa-chevron-right iconWidthCompleted" />
+                ) : (
+                  <span className="fa-solid fa-chevron-down iconWidthCompleted" />
+                )}
+                <span className="textB">Today</span>{" "}
+                <span className="textGray">{plannedTasksArrToday.length}</span>
+              </div>
+            )}
+            {showPlanned && (
+              <DisplayTasks
+                tasksArrToday={plannedTasksArrToday}
+                tasksArrCompleted={[]}
+              />
+            )}
+            {/* {tasksToday} */}
 
-            {tasksToday}
-
-            {showPlanned && displayTasksToday}
+            {/* {showPlanned && displayTasksToday} */}
             <DisplayDueDate />
           </div>
         </div>

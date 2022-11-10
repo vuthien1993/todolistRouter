@@ -5,9 +5,9 @@ import Submit from "../MyDay/Submit";
 import useInput from "../../hook/use-input";
 import { nextStepAction } from "../../Redux/nextStep";
 import useWrapper from "../../hook/use-wrapper";
-import useShowTaskDate from "../../hook/use-showtaskdate";
 import moment from "moment/moment";
 import "./Important.css";
+import DisplayTasks from "../DisplayTasks/DisplayTasks";
 function Important() {
   //ht modal select date su dung customhook
   const { value, showDateHandler, datePicker, time, timeNow, month, monthNow } =
@@ -21,8 +21,6 @@ function Important() {
   const tasksImportant = tasksArr.filter(
     (ele) => ele.isImportant === true && ele.isDone !== true
   );
-  // khai bao customhook hien thi task
-  const { displayTasksToday } = useShowTaskDate(tasksImportant, []);
   const {
     value: enteredImportant,
     valueChangeHandler: changeHandler,
@@ -90,13 +88,15 @@ function Important() {
               <i className="fa fa-arrow-down" aria-hidden="true"></i>
               <i className="fa fa-arrow-up" aria-hidden="true"></i>
             </span>
-            <span>Sort</span>
+            <span className="hiddenSort">Sort</span>
           </p>
         </div>
       </div>
       <div className="formSubmitMyday">
         {/* ////////////from submit/////////////// */}
         <Submit
+          time={time}
+          timeNow={timeNow}
           submitHandler={submitHandler}
           entered={enteredImportant}
           changeHandler={changeHandler}
@@ -108,7 +108,8 @@ function Important() {
         {datePicker}
         {/* /////////ht task list///////// */}
         <div className="tasksArrList">
-          {displayTasksToday}
+          <DisplayTasks tasksArrToday={tasksImportant} tasksArrCompleted={[]} />
+          {/* {displayTasksToday} */}
           {/* {[...tasksImportant].reverse().map((ele) => {
             return (
               <div

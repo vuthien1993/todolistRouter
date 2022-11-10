@@ -3,46 +3,51 @@ import "./MenuRow.css";
 function TaskDetail(props) {
   return (
     <>
-      <div className="tasksDetail fll">
-        <div className="tasksDetailX row">
+      <div
+        className="tasksDetail fll"
+        ref={props.width < 910 ? props.wrapperRef : null}
+      >
+        <div className="tasksDetailX">
           <div className="divR"></div>
-          <div className="col-md-10">
-            {props.isDone ? (
-              <i
-                style={{ color: "blue" }}
-                className="fa-solid fa-circle-check"
-                onClick={props.isDoneHandler}
-              />
-            ) : (
-              <i
-                className="fa-regular fa-circle "
-                onClick={props.isDoneHandler}
-              />
-            )}
-            <span className={`${props.isDone && "checked"}`}>
-              {" "}
-              {props.tasks}
-            </span>
-          </div>
-          <div className="col-md-2">
-            {!props.isImportant && (
-              <i
-                onClick={props.importantDetail}
-                style={{ color: "blue" }}
-                className="fa-regular fa-star"
-                data-toggle="tooltip"
-                title="Mark tasks as important!"
-              ></i>
-            )}
-            {props.isImportant && (
-              <i
-                onClick={props.importantDetail}
-                style={{ color: "blue" }}
-                className="fa-solid fa-star"
-                data-toggle="tooltip"
-                title="Remove importance!"
-              ></i>
-            )}
+          <div>
+            <div className="fll nameDetail">
+              {props.isDone ? (
+                <i
+                  style={{ color: "blue" }}
+                  className="fa-solid fa-circle-check"
+                  onClick={props.isDoneHandler}
+                />
+              ) : (
+                <i
+                  className="fa-regular fa-circle "
+                  onClick={props.isDoneHandler}
+                />
+              )}
+              <span className={`${props.isDone && "checked"}`}>
+                {" "}
+                {props.tasks}
+              </span>
+            </div>
+            <div className="fll startDetail">
+              {!props.isImportant && (
+                <i
+                  onClick={props.importantDetail}
+                  style={{ color: "blue" }}
+                  className="fa-regular fa-star"
+                  data-toggle="tooltip"
+                  title="Mark tasks as important!"
+                ></i>
+              )}
+              {props.isImportant && (
+                <i
+                  onClick={props.importantDetail}
+                  style={{ color: "blue" }}
+                  className="fa-solid fa-star"
+                  data-toggle="tooltip"
+                  title="Remove importance!"
+                ></i>
+              )}
+            </div>
           </div>
         </div>
         {/* //////////////xu ly add step////////////////// */}

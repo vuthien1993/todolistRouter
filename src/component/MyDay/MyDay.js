@@ -5,7 +5,7 @@ import moment from "moment/moment";
 import useInput from "../../hook/use-input";
 import Submit from "./Submit";
 import useWrapper from "../../hook/use-wrapper";
-import useShowTaskDate from "../../hook/use-showtaskdate";
+import DisplayTasks from "../DisplayTasks/DisplayTasks";
 import "./MyDay.css";
 import { nextStepAction } from "../../Redux/nextStep";
 
@@ -28,9 +28,6 @@ function MyDay(props) {
     (ele) => ele.isMyday === true && ele.isDone === true
   );
 
-  // khai bao customhook hien thi task
-  const { displayTasksToday, tasksCompleted, displayTasksCompleted } =
-    useShowTaskDate(mydayTasksArr, mydayTasksArrCompleted);
   //khai bao lay gia tri thoi gian thuc
   const d = moment().format("dddd, MMMM Do");
   //khai bao su dung custom hook
@@ -133,7 +130,7 @@ function MyDay(props) {
                     ></path>
                   </svg>
                 </span>
-                <span>Sort</span>
+                <span className="hiddenSort">Sort</span>
               </span>
               <span className="suggestions">
                 <svg
@@ -150,7 +147,7 @@ function MyDay(props) {
                     fill="currentColor"
                   ></path>
                 </svg>
-                <span>Suggestions</span>
+                <span className="hiddenSort">Suggestions</span>
               </span>
             </div>
           </div>
@@ -158,6 +155,8 @@ function MyDay(props) {
         <div className="formSubmitMyday">
           {/* /////////////// from submit //////////////// */}
           <Submit
+            time={time}
+            timeNow={timeNow}
             submitHandler={submitHandler}
             entered={enteredMyday}
             changeHandler={changeHandler}
@@ -167,12 +166,12 @@ function MyDay(props) {
           />
           {datePicker}
           {/* //////////////////////// */}
+
           <div className="tasksArrList">
-            {displayTasksToday}
-            <br />
-            {/* Completed */}
-            {tasksCompleted}
-            {displayTasksCompleted}
+            <DisplayTasks
+              tasksArrToday={mydayTasksArr}
+              tasksArrCompleted={mydayTasksArrCompleted}
+            />
           </div>
         </div>
       </div>

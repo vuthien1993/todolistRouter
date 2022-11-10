@@ -4,6 +4,7 @@ const nextStepArr = JSON.parse(localStorage.getItem("nextStepArr")) ?? [];
 const initialState = {
   nextStepArr,
   display: true,
+  width: window.innerWidth,
 };
 const nextStep = createSlice({
   name: "nextStep",
@@ -42,6 +43,12 @@ const nextStep = createSlice({
       );
       state.nextStepArr = newStep;
       localStorage.setItem("nextStepArr", JSON.stringify(state.nextStepArr));
+    },
+    displayMobile(state) {
+      state.display = false;
+    },
+    setWidth(state, { payload }) {
+      state.width = payload.width;
     },
   },
 });

@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 const tasksArr = JSON.parse(localStorage.getItem("tasksArr")) ?? [];
-
 const initialState = {
   showPlannedWeek: false,
   showPlannedLater: false,

@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from "react";
+import { useSelector } from "react-redux";
 import DatePicker from "react-date-picker";
 const useWrapper = () => {
+  const display = useSelector((state) => state.nextStep.display);
   const [showDate, setShowDate] = useState(false);
   const [value, onChange] = useState(new Date());
   const showDateHandler = () => {
@@ -28,7 +30,7 @@ const useWrapper = () => {
   const wrapperRef = useRef(null);
   useOutsideAlerter(wrapperRef);
   const datePicker = showDate && (
-    <div ref={wrapperRef} className="dateDue">
+    <div ref={wrapperRef} className={`${display ? "dateDue" : "dateDue1"}`}>
       <div className="due">
         <span>Due</span>
       </div>
