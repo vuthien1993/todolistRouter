@@ -1,6 +1,13 @@
 import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { nextStepAction } from "../Redux/nextStep";
 import "./NavBar.css";
 function NavBar() {
+  const dispatch = useDispatch();
+  const displayInput = useSelector((state) => state.nextStep.displayInput);
+  const displayInputHandler = () => {
+    dispatch(nextStepAction.displayInput());
+  };
   const [showSeting, setShowSeting] = useState(false);
   const [showQuestion, setShowQuestion] = useState(false);
   const [showBullhorn, setShowBullhorn] = useState(false);
@@ -38,9 +45,13 @@ function NavBar() {
             </a>
           </div>
         </div>
-        <div className="fll navSearchInput">
+        <div
+          className={`fll navSearchInput ${
+            displayInput ? "displayInput " : "toggleInput"
+          }`}
+        >
           <div>
-            <button aria-label="enter-search">
+            <button aria-label="enter-search" onClick={displayInputHandler}>
               <i className="fa fa-search" aria-hidden="true"></i>
             </button>
             <input />

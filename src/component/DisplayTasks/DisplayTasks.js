@@ -240,7 +240,9 @@ function DisplayTasks(props) {
             return (
               <div
                 className={`${
-                  ele.id === idDetail
+                  display && width < 910
+                    ? "borderTasksArrMobile"
+                    : ele.id === idDetail
                     ? "borderTasksArrActive"
                     : "borderTasksArr"
                 }`}

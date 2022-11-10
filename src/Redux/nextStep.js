@@ -5,6 +5,7 @@ const initialState = {
   nextStepArr,
   display: true,
   width: window.innerWidth,
+  displayInput: false,
 };
 const nextStep = createSlice({
   name: "nextStep",
@@ -49,6 +50,9 @@ const nextStep = createSlice({
     },
     setWidth(state, { payload }) {
       state.width = payload.width;
+    },
+    displayInput(state) {
+      state.displayInput = !state.displayInput;
     },
   },
 });

@@ -60,7 +60,8 @@ function MenuRow(props) {
     (ele) => ele.isMyday === true && ele.isDone !== true
   );
   const plannedTasksArr = tasksArrTotal.filter(
-    (ele) => ele.isPlanned === true && ele.isDone !== true
+    (ele) =>
+      ele.isPlanned === true && ele.isDone !== true && ele.time === timeNow
   );
   const plannedTasksArrTomorow = tasksArr.filter(
     (ele) =>
